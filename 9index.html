@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>iframe先読み＋タブ遷移</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 6px solid #ccc;
+    border-top-color: #3498db;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite; /* ← 回転速度を0.8秒に変更 */
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  iframe {
+    display: none; /* 非表示で先読み */
+  }
+</style>
+</head>
+<body>
+
+<div id="spinner" class="spinner"></div>
+<iframe id="preload-frame" src="https://forms.gle/UwyhGAeP4inPzaWg9"></iframe>
+
+<script>
+  const iframe = document.getElementById('preload-frame');
+
+  iframe.onload = () => {
+    // iframeの読み込み完了後、メイン画面を遷移
+    window.location.href = iframe.src;
+  };
+</script>
+
+</body>
+</html>
